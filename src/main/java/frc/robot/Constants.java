@@ -18,6 +18,8 @@ public final class Constants {
     public static final int RF_ID = 1;
     public static final int LB_ID = 2;
     public static final int RB_ID = 3;
+    public static final int RV_AXIS = 2;
+    public static final int LV_AXIS = 0;
 
 
 }

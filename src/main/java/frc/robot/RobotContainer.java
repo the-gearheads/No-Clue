@@ -30,7 +30,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     controller = new XboxController(Constants.CONTROLLER_PORT);
-    driveSS = new DriveSS(controller);
+    driveSS = new DriveSS();
     configureButtonBindings();
   }
 

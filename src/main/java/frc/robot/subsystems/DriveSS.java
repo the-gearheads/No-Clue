@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.DriveC;
+import frc.robot.commands.TankDriveC;
 
 public class DriveSS extends SubsystemBase {
 
@@ -19,28 +19,28 @@ public class DriveSS extends SubsystemBase {
   private final CANSparkMax rfMotor;
   private final CANSparkMax lbMotor;
   private final CANSparkMax rbMotor;
-  private final SpeedControllerGroup leftSide;
-  private final SpeedControllerGroup rightSide;
+  private final SpeedControllerGroup leftMotors;
+  private final SpeedControllerGroup rightMotors;
 
   /** Creates a new ExampleSubsystem. */
-  public DriveSS(XboxController controller) {
-      setDefaultCommand(new DriveC(controller));
+  public DriveSS() {
       lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
       rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
       lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
       rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
-      leftSide = new SpeedControllerGroup(lfMotor, lbMotor);
-      rightSide = new SpeedControllerGroup(rfMotor, rbMotor);
+      leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
+      rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
+      setDefaultCommand(new TankDriveC(this));
   }
   public void setLeft(double speed){
-    leftSide.set(speed);
+    leftMotors.set(speed);
   }
   public void setRight(double speed){
-    rightSide.set(speed);
+    rightMotors.set(speed);
   }
-  public void setBoth(double rightSpeed, double leftSpeed){
-    leftSide.set(leftSpeed);
-    rightSide.set(rightSpeed);
+  public void setTankDrive(double rightSpeed, double leftSpeed){
+    leftMotors.set(leftSpeed);
+    rightMotors.set(rightSpeed);
   }
 
   @Override
