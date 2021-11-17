@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.TankDriveC;
+import frc.robot.commands.C_TankDrive;
 
-public class DriveSS extends SubsystemBase {
+public class SS_Drive extends SubsystemBase {
 
   private final CANSparkMax lfMotor;
   private final CANSparkMax rfMotor;
@@ -23,14 +23,14 @@ public class DriveSS extends SubsystemBase {
   private final SpeedControllerGroup rightMotors;
 
   /** Creates a new ExampleSubsystem. */
-  public DriveSS() {
+  public SS_Drive() {
       lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
       rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
       lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
       rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
       leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
       rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
-      setDefaultCommand(new TankDriveC(this));
+      setDefaultCommand(new C_TankDrive(this));
   }
   public void setLeft(double speed){
     leftMotors.set(speed);
