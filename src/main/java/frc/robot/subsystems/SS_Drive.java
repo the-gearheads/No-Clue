@@ -9,10 +9,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.C_TankDrive;
-
+import frc.robot.commands.C_ArcadeDrive;
 public class SS_Drive extends SubsystemBase {
 
   private final CANSparkMax lfMotor;
@@ -21,6 +22,8 @@ public class SS_Drive extends SubsystemBase {
   private final CANSparkMax rbMotor;
   private final SpeedControllerGroup leftMotors;
   private final SpeedControllerGroup rightMotors;
+  private final double speedModifier = 0.2;
+  private DifferentialDrive differentialDrive;
 
   /** Creates a new ExampleSubsystem. */
   public SS_Drive() {
@@ -30,7 +33,8 @@ public class SS_Drive extends SubsystemBase {
       rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
       leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
       rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
-      setDefaultCommand(new C_TankDrive(this));
+      differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+      setDefaultCommand(new C_ArcadeDrive(this));
   }
   public void setLeft(double speed){
     leftMotors.set(speed);
@@ -38,9 +42,14 @@ public class SS_Drive extends SubsystemBase {
   public void setRight(double speed){
     rightMotors.set(speed);
   }
+
   public void setTankDrive(double rightSpeed, double leftSpeed){
-    leftMotors.set(leftSpeed);
-    rightMotors.set(rightSpeed);
+    leftMotors.set(leftSpeed*-1 * speedModifier);
+    rightMotors.set(rightSpeed * speedModifier);
+  }
+
+  public void arcadeDrive(double speed, double rotation){
+    differentialDrive.arcadeDrive(speed,rotation);
   }
 
   @Override

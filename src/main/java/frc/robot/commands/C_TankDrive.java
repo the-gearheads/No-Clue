@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import javax.sound.sampled.SourceDataLine;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -12,11 +14,11 @@ import frc.robot.subsystems.SS_Drive;
 
 public class C_TankDrive extends CommandBase {
   /** Creates a new DriveC. */
-  private SS_Drive driveSS;
-  public C_TankDrive(SS_Drive driveSS) {
+  private SS_Drive SS_drive;
+  public C_TankDrive(SS_Drive SS_drive) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.driveSS = driveSS;
-    addRequirements(driveSS);
+    this.SS_drive = SS_drive;
+    addRequirements(SS_drive);
   }
 
   // Called when the command is initially scheduled.
@@ -30,14 +32,16 @@ public class C_TankDrive extends CommandBase {
   public void execute() {
     double rvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.RV_AXIS);
     double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
-    driveSS.setTankDrive(rvAxis, lvAxis);
+    System.out.println("rvAxis: " + rvAxis);
+    System.out.println("lvAxis: " + lvAxis);
+    SS_drive.setTankDrive(rvAxis, lvAxis);
     //
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSS.setTankDrive(0,0);
+    SS_drive.setTankDrive(0,0);
     //After the shaft is half-extended, 
   }
 
