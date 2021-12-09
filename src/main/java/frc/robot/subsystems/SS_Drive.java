@@ -22,7 +22,6 @@ public class SS_Drive extends SubsystemBase {
   private final CANSparkMax rbMotor;
   private final SpeedControllerGroup leftMotors;
   private final SpeedControllerGroup rightMotors;
-  private final double speedModifier = 0.2;
   private DifferentialDrive differentialDrive;
 
   /** Creates a new ExampleSubsystem. */
@@ -30,11 +29,12 @@ public class SS_Drive extends SubsystemBase {
       lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
       rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
       lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
+      // lbMotor.setInverted(true);
       rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
       leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
       rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
       differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-      setDefaultCommand(new C_ArcadeDrive(this));
+      setDefaultCommand(new C_TankDrive(this));
   }
   public void setLeft(double speed){
     leftMotors.set(speed);
@@ -44,8 +44,8 @@ public class SS_Drive extends SubsystemBase {
   }
 
   public void setTankDrive(double rightSpeed, double leftSpeed){
-    leftMotors.set(leftSpeed*-1 * speedModifier);
-    rightMotors.set(rightSpeed * speedModifier);
+    leftMotors.set(leftSpeed*-1);
+    rightMotors.set(rightSpeed);
   }
 
   public void arcadeDrive(double speed, double rotation){

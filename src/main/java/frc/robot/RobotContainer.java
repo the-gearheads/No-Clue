@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.SS_Drive;
+import frc.robot.subsystems.SS_Shaft;
+import frc.robot.commands.C_SetShaftHeight;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,6 +24,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private SS_Drive SS_drive;
+  private SS_Shaft SS_shaft;
   private XboxController controller;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -28,6 +32,7 @@ public class RobotContainer {
     // Configure the button bindings
     controller = new XboxController(Constants.CONTROLLER_PORT);
     SS_drive = new SS_Drive();
+    SS_shaft = new SS_Shaft();
     configureButtonBindings();
   }
 
@@ -38,7 +43,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    JoystickButton xBtn = new JoystickButton(controller, XboxController.Button.kX.value);
+    xBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 10));
   }
 
   /**

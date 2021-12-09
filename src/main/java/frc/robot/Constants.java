@@ -18,8 +18,12 @@ public final class Constants {
     public static final int RF_ID = 1;
     public static final int LB_ID = 3;
     public static final int RB_ID = 2;
+    public static final int SHAFT_MOTOR = 5; //When you figure out the id, change it
     public static final int RV_AXIS = 2;//right vertical
     public static final int LV_AXIS = 1;//left vertical
-    public static final int RH_AXIS = 2;//right horizontal
-    public static final int LH_AXIS = 1;//left horizontal
+    public static final int RH_AXIS = 3;//right horizontal
+    public static final int LH_AXIS = 0;//left horizontal
+    public static final int JOYSTICK_PORT = 3;
+    public static final int JOYSTICK_Y_AXIS = 1;
+    public static final double SHAFT_ROTATIONS_TO_METERS = 12/30 * 0.5;//12 grooves for first gear, 30 for second gear, and 1/2 inch of height for each rotation of second gear
 }

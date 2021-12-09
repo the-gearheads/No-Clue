@@ -15,6 +15,7 @@ import frc.robot.subsystems.SS_Drive;
 public class C_TankDrive extends CommandBase {
   /** Creates a new DriveC. */
   private SS_Drive SS_drive;
+  private final double speedModifier = 0.5;
   public C_TankDrive(SS_Drive SS_drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.SS_drive = SS_drive;
@@ -34,7 +35,7 @@ public class C_TankDrive extends CommandBase {
     double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
     System.out.println("rvAxis: " + rvAxis);
     System.out.println("lvAxis: " + lvAxis);
-    SS_drive.setTankDrive(rvAxis, lvAxis);
+    SS_drive.setTankDrive(rvAxis*speedModifier, lvAxis*speedModifier);
     //
   }
 
