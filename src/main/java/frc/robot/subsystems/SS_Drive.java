@@ -4,54 +4,127 @@
 
 package frc.robot.subsystems;
 
+import javax.sound.sampled.SourceDataLine;
+
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.C_TankDrive;
 import frc.robot.commands.C_ArcadeDrive;
+import frc.robot.commands.C_DebugDrive;
 public class SS_Drive extends SubsystemBase {
 
   private final CANSparkMax lfMotor;
   private final CANSparkMax rfMotor;
   private final CANSparkMax lbMotor;
   private final CANSparkMax rbMotor;
+  private final CANEncoder lfEncoder;
+  private final CANEncoder rfEncoder;
+  private final CANEncoder lbEncoder;
+  private final CANEncoder rbEncoder;
   private final SpeedControllerGroup leftMotors;
   private final SpeedControllerGroup rightMotors;
   private DifferentialDrive differentialDrive;
+  private double prevLBPos = 0;
+  private double prevLFPos = 0;
+  private double prevRBPos = 0;
+  private double prevRFPos = 0;
 
   /** Creates a new ExampleSubsystem. */
   public SS_Drive() {
       lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
       rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
+      rfMotor.setInverted(true);
       lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
-      // lbMotor.setInverted(true);
+      lbMotor.setInverted(false);
       rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
+      rbMotor.setInverted(true);
+      
+      lbMotor.setIdleMode(IdleMode.kBrake);
+      lfMotor.setIdleMode(IdleMode.kBrake);
+      rbMotor.setIdleMode(IdleMode.kBrake);
+      rfMotor.setIdleMode(IdleMode.kBrake);
+      
+    
+      lfEncoder = lfMotor.getEncoder();
+      rfEncoder = rfMotor.getEncoder();
+      lbEncoder = lbMotor.getEncoder();
+      rbEncoder = rbMotor.getEncoder();
+      
+      lfEncoder.setPosition(0);
+      rfEncoder.setPosition(0);
+      lbEncoder.setPosition(0);
+      rbEncoder.setPosition(0);
+
       leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
       rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
       differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-      setDefaultCommand(new C_TankDrive(this));
+      setDefaultCommand(new C_ArcadeDrive(this));
   }
+ 
+  public void setLB(double speed){
+    lbMotor.set(speed);
+  }
+  public void setLF(double speed){
+    lfMotor.set(speed);
+  }
+  public void setRB(double speed){
+    rbMotor.set(speed);
+  }
+  public void setRF(double speed){
+    rfMotor.set(speed);
+  }
+
+  public double getLBPosition(){
+    return lbEncoder.getPosition();
+  }
+  public double getLFPosition(){
+    return lfEncoder.getPosition();
+  }
+  public double getRBPosition(){
+    return rbEncoder.getPosition();
+  }
+  public double getRFPosition(){
+    return rfEncoder.getPosition();
+  }
+
   public void setLeft(double speed){
     leftMotors.set(speed);
   }
+
   public void setRight(double speed){
     rightMotors.set(speed);
   }
 
   public void setTankDrive(double rightSpeed, double leftSpeed){
-    leftMotors.set(leftSpeed*-1);
-    rightMotors.set(rightSpeed);
+    leftMotors.set(-leftSpeed);
+    rightMotors.set(-rightSpeed);
   }
 
   public void arcadeDrive(double speed, double rotation){
-    differentialDrive.arcadeDrive(speed,rotation);
+    differentialDrive.arcadeDrive(rotation,-speed);
   }
 
+  public void printRPMs(){
+    SmartDashboard.putNumber("lbMotor Position",(getLBPosition() - prevLBPos)/20 * 60000);
+    SmartDashboard.putNumber("lfMotor Position",(getLFPosition() - prevLFPos)/20 * 60000);
+    SmartDashboard.putNumber("rbMotor Position",(getRBPosition() - prevRBPos)/20 * 60000);
+    SmartDashboard.putNumber("rfMotor Position",(getRFPosition() - prevRFPos)/20 * 60000);
+
+    prevLBPos = getLBPosition();
+    prevLFPos = getLFPosition();
+    prevRBPos = getRBPosition();
+    prevRFPos = getRFPosition();
+}
+    //cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

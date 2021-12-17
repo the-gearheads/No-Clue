@@ -33,8 +33,8 @@ public class C_TankDrive extends CommandBase {
   public void execute() {
     double rvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.RV_AXIS);
     double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
-    System.out.println("rvAxis: " + rvAxis);
-    System.out.println("lvAxis: " + lvAxis);
+    // System.out.println("rvAxis: " + rvAxis);
+    // System.out.println("lvAxis: " + lvAxis);
     SS_drive.setTankDrive(rvAxis*speedModifier, lvAxis*speedModifier);
     //
   }

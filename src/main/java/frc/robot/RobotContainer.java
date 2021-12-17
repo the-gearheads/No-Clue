@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.SS_Drive;
 import frc.robot.subsystems.SS_Shaft;
+import frc.robot.commands.C_SetShaftByAxis;
 import frc.robot.commands.C_SetShaftHeight;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,6 +36,7 @@ public class RobotContainer {
     SS_drive = new SS_Drive();
     SS_shaft = new SS_Shaft();
     configureButtonBindings();
+    // (new C_SetShaftByAxis(SS_shaft)).schedule(true);
   }
 
   /**
@@ -43,8 +46,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton xBtn = new JoystickButton(controller, XboxController.Button.kX.value);
-    xBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 10));
+    JoystickButton yBtn = new JoystickButton(controller, 4);
+    yBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 25));
+
+    JoystickButton xBtn = new JoystickButton(controller, 1);
+    xBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 0));
   }
 
   /**

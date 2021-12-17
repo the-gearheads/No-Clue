@@ -11,6 +11,7 @@ import frc.robot.subsystems.SS_Drive;
 
 public class C_ArcadeDrive extends CommandBase {
   public SS_Drive SS_drive;
+  public double speedModifier = 0.3;
 
   /** Creates a new C_ArcadeDrive. */
   public C_ArcadeDrive(SS_Drive SS_drive) {
@@ -28,7 +29,9 @@ public class C_ArcadeDrive extends CommandBase {
  public void execute() {
    double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
    double rhAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.RH_AXIS);
-   SS_drive.arcadeDrive(lvAxis,rhAxis);
+   SS_drive.arcadeDrive(lvAxis * speedModifier,rhAxis * speedModifier);
+
+   SS_drive.printRPMs();
  }
 
  // Called once the command ends or is interrupted.
