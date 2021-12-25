@@ -5,51 +5,51 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.SS_Shaft;
-import frc.robot.commands.C_SetShaftByAxis;
+import frc.robot.subsystems.SS_Elevator;
+import frc.robot.commands.C_SetElevatorByAxis;
 
-public class C_SetShaftHeight extends CommandBase {
-  public final SS_Shaft SS_shaft;
+public class C_SetElevatorByHeight extends CommandBase {
+  public final SS_Elevator SS_elevator;
   public final double requestedHeight;
   public final double speed = 0.3;
-  /** Creates a new C_SetShaftHeight. */
-  public C_SetShaftHeight(SS_Shaft SS_shaft, double height) {
-    this.SS_shaft = SS_shaft;
+  /** Creates a new C_SetelevatorHeight. */
+  public C_SetElevatorByHeight(SS_Elevator SS_elevator, double height) {
+    this.SS_elevator = SS_elevator;
     this.requestedHeight = height;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(SS_elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(SS_shaft.getHeight()<requestedHeight){
-      SS_shaft.setSpeed(speed);
+    if(SS_elevator.getHeight()<requestedHeight){
+      SS_elevator.setSpeed(speed);
     }else{
-      SS_shaft.setSpeed(-speed);
+      SS_elevator.setSpeed(-speed);
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(SS_shaft.getHeight()<requestedHeight){
+    // if(SS_elevator.getHeight()<requestedHeight){
       
     // }else{
-      // SS_shaft.setSpeed(-speed);
+      // SS_elevator.setSpeed(-speed);
     // }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SS_shaft.setSpeed(0);
-    (new C_SetShaftByAxis(this.SS_shaft)).schedule(true);
+    SS_elevator.setSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(SS_shaft.getHeight()-requestedHeight) < 0.1;
-    // return SS_shaft.getHeight() > requestedHeight;
+    return Math.abs(SS_elevator.getHeight()-requestedHeight) < 0.02;
+    // return SS_elevator.getHeight() > requestedHeight;
   }
 }

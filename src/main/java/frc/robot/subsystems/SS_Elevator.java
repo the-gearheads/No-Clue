@@ -7,45 +7,47 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.C_SetShaftByAxis;
+import frc.robot.commands.C_SetElevatorByAxis;
+import frc.robot.commands.C_SetElevatorByHeight;
 
-public class SS_Shaft extends SubsystemBase {
+public class SS_Elevator extends SubsystemBase {
 
-  private final CANSparkMax shaftMotor;
+  private final CANSparkMax elevatorMotor;
   private final CANEncoder heightEncoder;
   /** Creates a new ExampleSubsystem. */
-  public SS_Shaft() {
-      shaftMotor =  new CANSparkMax(Constants.SHAFT_MOTOR, MotorType.kBrushless);
-      heightEncoder = shaftMotor.getEncoder();
+  public SS_Elevator() {
+      elevatorMotor =  new CANSparkMax(Constants.ELEVATOR_MOTOR, MotorType.kBrushless);
+      heightEncoder = elevatorMotor.getEncoder();
       heightEncoder.setPosition(0);
-      // setDefaultCommand(new C_SetShaftByAxis(this));
-    //   heightEncoder.setPositionConversionFactor(Constants.SHAFT_ROTATIONS_TO_METERS);
+      heightEncoder.setPositionConversionFactor(Constants.ELEVATOR_ROTATIONS_TO_METERS);
+      // setDefaultCommand(new C_SetElevatorByHeight(this, 0.5));
+      
   }
 
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new C_SetShaftByAxis(this));
-}
 
   public double getHeight(){
     return heightEncoder.getPosition();
   }
 
   public void setSpeed(double speed){
-    shaftMotor.set(speed);
+    elevatorMotor.set(speed);
+  }
+  public void setVoltage(double voltage){
+    elevatorMotor.setVoltage(voltage);
   }
   public double getSpeed(){
-    return shaftMotor.get();
+    return elevatorMotor.get();
   }
 
   @Override
   public void periodic() {
-        // System.out.println("Height: " + getHeight());
     // This method will be called once per scheduler run
-    System.out.println(getHeight());
+        System.out.println("Height: " + getHeight());
+        SmartDashboard.putNumber("Elevator Position", getHeight());
   }
 
   @Override

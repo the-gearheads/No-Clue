@@ -37,9 +37,14 @@ public class SS_Claw extends SubsystemBase {
   public double getSpeed(){
     return clawMotor.get();
   }
+  public double getCurrent(){
+    return clawMotor.getOutputCurrent();
+  }
 
   public void periodic() {
     // This method will be called once per scheduler run
+    System.out.println("Current: " + getCurrent());
+    System.out.println("Position: " + getPosition());
   }
 
   @Override

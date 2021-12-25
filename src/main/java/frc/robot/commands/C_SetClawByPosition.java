@@ -5,16 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.SS_Claw;
 
 public class C_SetClawByPosition extends CommandBase {
   private SS_Claw SS_claw;
-  private int speed;
-  private int requestedPosition;
+  private double speed = 0.2;
+  private double requestedPosition;
 
   /** Creates a new C_SetClawByPosition. */
-  public C_SetClawByPosition(SS_Claw SS_claw) {
+  public C_SetClawByPosition(SS_Claw SS_claw, double requestedPosition) {
     this.SS_claw = SS_claw;
+    this.requestedPosition = requestedPosition;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(SS_claw);
   }
@@ -50,6 +52,9 @@ public class C_SetClawByPosition extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(requestedPosition - SS_claw.getPosition()) < 0.3;
+    return Math.abs(requestedPosition - SS_claw.getPosition()) < 0.3
+    || SS_claw.getPosition()>Constants.CLAW_CLOSED_POSITION
+    || SS_claw.getPosition()<Constants.CLAW_OPEN_POSITION
+    || SS_claw.getCurrent() > Constants.CLAW_MAX_CURRENT;
   }
 }

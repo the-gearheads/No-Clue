@@ -9,9 +9,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.SS_Drive;
-import frc.robot.subsystems.SS_Shaft;
-import frc.robot.commands.C_SetShaftByAxis;
-import frc.robot.commands.C_SetShaftHeight;
+import frc.robot.subsystems.SS_Elevator;
+import frc.robot.subsystems.SS_Elevator2;
+import frc.robot.subsystems.SS_Claw;
+import frc.robot.commands.C_SetClawByPosition;
+import frc.robot.commands.C_SetElevatorByAxis;
+import frc.robot.commands.C_SetElevatorByHeight;
+import frc.robot.commands.C_SetElevatorByHeight2;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -26,17 +30,21 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private SS_Drive SS_drive;
-  private SS_Shaft SS_shaft;
+  // private SS_Elevator SS_elevator;
+    private SS_Elevator2 SS_elevator;
+
   private XboxController controller;
+  private SS_Claw SS_claw;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     controller = new XboxController(Constants.CONTROLLER_PORT);
-    SS_drive = new SS_Drive();
-    SS_shaft = new SS_Shaft();
+    // SS_drive = new SS_Drive();
+    // SS_elevator = new SS_Elevator();
+    SS_elevator = new SS_Elevator2();
+    // SS_claw = new SS_Claw();
     configureButtonBindings();
-    // (new C_SetShaftByAxis(SS_shaft)).schedule(true);
   }
 
   /**
@@ -46,11 +54,18 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton yBtn = new JoystickButton(controller, 4);
-    yBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 25));
+    // JoystickButton yBtn = new JoystickButton(controller, 4);
+    // yBtn.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0.5));
 
-    JoystickButton xBtn = new JoystickButton(controller, 1);
-    xBtn.whenPressed(new C_SetShaftHeight(SS_shaft, 0));
+
+    // JoystickButton xBtn = new JoystickButton(controller, 1);
+    // xBtn.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0));
+
+    // JoystickButton lTriggerBtn = new JoystickButton(controller, Constants.lTriggerBtn);
+    // lTriggerBtn.whenPressed(new C_SetClawByPosition(SS_claw, 0));
+
+    // JoystickButton rTriggerBtn = new JoystickButton(controller, Constants.rTriggerBtn);
+    // rTriggerBtn.whenPressed(new C_SetClawByPosition(SS_claw, 50));
   }
 
   /**
