@@ -7,11 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Controller;
 import frc.robot.subsystems.SS_Drive;
 
 public class C_ArcadeDrive extends CommandBase {
   public SS_Drive SS_drive;
-  public double speedModifier = 0.3;
+  public double speedModifier = 0.5;
 
   /** Creates a new C_ArcadeDrive. */
   public C_ArcadeDrive(SS_Drive SS_drive) {
@@ -27,8 +28,8 @@ public class C_ArcadeDrive extends CommandBase {
  // Called every time the scheduler runs while the command is scheduled.
  @Override
  public void execute() {
-   double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
-   double rhAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.RH_AXIS);
+   double lvAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.LV_AXIS);
+   double rhAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.RH_AXIS);
    SS_drive.arcadeDrive(lvAxis * speedModifier,rhAxis * speedModifier);
 
    SS_drive.printRPMs();

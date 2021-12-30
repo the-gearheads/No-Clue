@@ -31,8 +31,8 @@ public class C_TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.RV_AXIS);
-    double lvAxis = DriverStation.getInstance().getStickAxis(Constants.CONTROLLER_PORT, Constants.LV_AXIS);
+    double rvAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.RV_AXIS);
+    double lvAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.LV_AXIS);
     // System.out.println("rvAxis: " + rvAxis);
     // System.out.println("lvAxis: " + lvAxis);
     SS_drive.setTankDrive(rvAxis*speedModifier, lvAxis*speedModifier);

@@ -6,52 +6,36 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SS_Elevator;
-import frc.robot.Constants;
 
 public class C_SetElevatorByHeight extends CommandBase {
-  public final SS_Elevator SS_elevator;
-  public final double requestedHeight;
-  public final double speed = 0.3;
-  /** Creates a new C_SetelevatorHeight. */
-  public C_SetElevatorByHeight(SS_Elevator SS_elevator, double height) {
-    this.SS_elevator = SS_elevator;
-    this.requestedHeight = height;
+  private SS_Elevator SS_elevator;
+  private double requestedHeight;
+
+  /** Creates a new setElevatorByHeight4. */
+  public C_SetElevatorByHeight(SS_Elevator SS_elevator, double requestedHeight) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.SS_elevator = SS_elevator;
     addRequirements(SS_elevator);
+    this.requestedHeight = requestedHeight;
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    updateSpeed();
-  }
-
-  private void updateSpeed(){
-    if(SS_elevator.getHeight()<requestedHeight){
-      SS_elevator.setSpeed(speed);
-    }else{
-      SS_elevator.setSpeed(-speed);
-    }
+    SS_elevator.setGoal(requestedHeight);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if((requestedHeight-SS_elevator.getHeight())*SS_elevator.getSpeed() < 0){
-      updateSpeed();
-    }
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    SS_elevator.setSpeed(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(requestedHeight - SS_elevator.getHeight()) < 0.3
-        || SS_elevator.getHeight() >= Constants.ELEVATOR_MAX_HEIGHT
-        || SS_elevator.getHeight() <= Constants.ELEVATOR_MIN_HEIGHT;
+    return true;
   }
 }

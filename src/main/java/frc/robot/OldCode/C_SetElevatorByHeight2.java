@@ -2,13 +2,12 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.OldCode;
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.Constants;
-import frc.robot.subsystems.SS_Elevator;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,11 +19,11 @@ public class C_SetElevatorByHeight2 extends ProfiledPIDCommand {
         // The ProfiledPIDController used by the command
         new ProfiledPIDController(
             // The PID gains
-            Constants.ELEVATOR_kP,
-            Constants.ELEVATOR_kI,
-            Constants.ELEVATOR_kD,
+            Constants.Elevator.kP,
+            Constants.Elevator.kI,
+            Constants.Elevator.kD,
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(Constants.ELEVATOR_MAX_VEL, Constants.ELEVATOR_MAX_ACC)),
+            new TrapezoidProfile.Constraints(Constants.Elevator.MAX_VEL, Constants.Elevator.MAX_ACC)),
         // This should return the measurement
         SS_elevator::getHeight,
         // This should return the goal (can also be a constant)

@@ -40,10 +40,10 @@ public class SS_Drive extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public SS_Drive() {
-    rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
-    rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
-    lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
-    lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
+    rfMotor = new CANSparkMax(Constants.Drive.RF_ID, MotorType.kBrushless);
+    rbMotor = new CANSparkMax(Constants.Drive.RB_ID, MotorType.kBrushless);
+    lfMotor = new CANSparkMax(Constants.Drive.LF_ID, MotorType.kBrushless);
+    lbMotor = new CANSparkMax(Constants.Drive.LB_ID, MotorType.kBrushless);
     
     rfMotor.setInverted(true);
     rbMotor.setInverted(true);

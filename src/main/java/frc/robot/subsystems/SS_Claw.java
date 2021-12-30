@@ -22,7 +22,7 @@ public class SS_Claw extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public SS_Claw() {
-      clawMotor = new CANSparkMax(Constants.CLAW_MOTOR, MotorType.kBrushless);
+      clawMotor = new CANSparkMax(Constants.Claw.MOTOR_ID, MotorType.kBrushless);
       clawEncoder = clawMotor.getEncoder();
       clawEncoder.setPosition(0);
   }
@@ -43,8 +43,6 @@ public class SS_Claw extends SubsystemBase {
 
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println("Claw Current: " + getCurrent());
-    System.out.println("Claw Position: " + getPosition());
   }
 
   @Override

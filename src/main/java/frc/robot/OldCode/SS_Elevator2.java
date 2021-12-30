@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.OldCode;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
@@ -11,22 +11,21 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
-import frc.robot.commands.C_ElevatorDebugger;
 
 public class SS_Elevator2 extends ProfiledPIDSubsystem {
-    private final CANSparkMax elevatorMotor = new CANSparkMax(Constants.ELEVATOR_MOTOR, MotorType.kBrushless);
+    private final CANSparkMax elevatorMotor = new CANSparkMax(Constants.Elevator.MOTOR_ID, MotorType.kBrushless);
     private final CANEncoder elevatorEncoder = elevatorMotor.getEncoder();
     private ElevatorFeedforward feedforward =
-        new ElevatorFeedforward(Constants.ELEVATOR_kS, Constants.ELEVATOR_kG,
-                           Constants.ELEVATOR_kV, Constants.ELEVATOR_kA);
+        new ElevatorFeedforward(Constants.Elevator.kS, Constants.Elevator.kG,
+                           Constants.Elevator.kV, Constants.Elevator.kA);
   
     /**
      * Create a new ArmSubsystem.
      */
     public SS_Elevator2() {
-      super(new ProfiledPIDController(Constants.ELEVATOR_kP, Constants.ELEVATOR_kI, Constants.ELEVATOR_kD, new TrapezoidProfile.Constraints(
-          Constants.ELEVATOR_MAX_VEL, Constants.ELEVATOR_MAX_ACC)), 0);
-      elevatorEncoder.setPositionConversionFactor(Constants.ELEVATOR_ROTATIONS_TO_METERS);
+      super(new ProfiledPIDController(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD, new TrapezoidProfile.Constraints(
+          Constants.Elevator.MAX_VEL, Constants.Elevator.MAX_ACC)), 0);
+      elevatorEncoder.setPositionConversionFactor(Constants.Elevator.ROTATIONS_TO_METERS);
       elevatorEncoder.setPosition(0);
       getController().setTolerance(0.005);
 
@@ -36,18 +35,18 @@ public class SS_Elevator2 extends ProfiledPIDSubsystem {
     @Override
     public void useOutput(double output, TrapezoidProfile.State setpoint) {
       // Calculate the feedforward from the sepoint
-    //   double ff = feedforward.calculate(setpoint.position, setpoint.velocity);
+      //   double ff = feedforward.calculate(setpoint.position, setpoint.velocity);
       double kS = SmartDashboard.getNumber("Elevator FeedForward kS", 0);
       double kG = SmartDashboard.getNumber("Elevator FeedForward kG", 0);
       double kV = SmartDashboard.getNumber("Elevator FeedForward kV", 0);
       double kA = SmartDashboard.getNumber("Elevator FeedForward kA", 0);
 
-      ElevatorFeedforward bruh = new ElevatorFeedforward(kS, kG, kV, kA);
-      double ff = bruh.calculate(elevatorEncoder.getPosition(), elevatorEncoder.getVelocity());
+      ElevatorFeedforward feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
+      double ff = feedforward.calculate(setpoint.position, setpoint.velocity);
 
       // Add the feedforward to the PID output to get the motor output
       elevatorMotor.setVoltage(MathUtil.clamp(output + ff, -12, 12));
-    // elevatorMotor.setVoltage(output);
+      // elevatorMotor.setVoltage(output);
     }
   
     @Override

@@ -38,6 +38,6 @@ public class C_ShutClaw extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (SS_claw.getCurrent() >= Constants.CLAW_MAX_CURRENT) || (SS_claw.getPosition() >= Constants.CLAW_CLOSED_POSITION);
+    return (SS_claw.getCurrent() >= 15) || (SS_claw.getPosition() >= Constants.Claw.CLOSED_POSITION);
   }
 }

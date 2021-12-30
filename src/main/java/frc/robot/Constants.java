@@ -13,37 +13,49 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int CONTROLLER_PORT = 2;
-    public static final int LF_ID = 4;
-    public static final int RF_ID = 1;
-    public static final int LB_ID = 3;
-    public static final int RB_ID = 2;
-    public static final int ELEVATOR_MOTOR = 5; //When you figure out the id, change it
-    public static final int RV_AXIS = 2;//right vertical
-    public static final int LV_AXIS = 1;//left vertical
-    public static final int RH_AXIS = 3;//right horizontal
-    public static final int LH_AXIS = 0;//left horizontal
-    public static final int JOYSTICK_PORT = 3;
-    public static final int JOYSTICK_Y_AXIS = 1;
-    public static final double ELEVATOR_ROTATIONS_TO_METERS = (double)30 / 12 * 0.5 * 0.0254*0.5;//12 grooves for first gear, 30 for second gear, and 1/2 inch of height for each rotation of second gear
-    public static final int CLAW_MOTOR = 6;
-    public static final int lTriggerBtn = 7;
-    public static final int rTriggerBtn = 8;
-    public static final double ELEVATOR_kP = 0;
-    public static final double ELEVATOR_kI = 0;
-    public static final double ELEVATOR_kD = 0;
-    public static final double ELEVATOR_MAX_VEL = 0;
-    public static final double ELEVATOR_MAX_ACC = 0;
-    public static final double CLAW_CLOSED_POSITION = 30;
-    public static final double CLAW_OPEN_POSITION = 0;
-    public static final double CLAW_MAX_CURRENT = 10;
-    public static final double ELEVATOR_kS = 0;
-    public static final double ELEVATOR_kG = 0;
-    public static final double ELEVATOR_kV = 0;
-    public static final double ELEVATOR_kA = 0;
-    public static final double ELEVATOR_MAX_HEIGHT = 1;
-    public static final double ELEVATOR_MIN_HEIGHT = 0;
-    public static final double ELEVATOR_MAX_AXIS_SPEED = 0.05;//0.01 m/s
+    public final class Controller{
+        public static final int PORT = 2;
+        public static final int RV_AXIS = 2;//right vertical
+        public static final int LV_AXIS = 1;//left vertical
+        public static final int RH_AXIS = 3;//right horizontal
+        public static final int LH_AXIS = 0;//left horizontal
+        public static final int L_TRIGGER = 7;
+        public static final int R_TRIGGER = 8;
+    }
 
+    public final class Joystick{
+        public static final int PORT = 3;
+        public static final int Y_AXIS = 1;
+    }
 
+    public final class Drive{
+        public static final int LF_ID = 4;
+        public static final int RF_ID = 1;
+        public static final int LB_ID = 3;
+        public static final int RB_ID = 2;
+    }
+
+    public final class Elevator{
+        public static final int MOTOR_ID = 5; //When you figure out the id, change it
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final double MAX_VEL = 0;
+        public static final double MAX_ACC = 0;
+        public static final double kS = 0;
+        public static final double kG = 0;
+        public static final double kV = 0;
+        public static final double kA = 0;
+        public static final double MAX_HEIGHT = 0.8;
+        public static final double MIN_HEIGHT = 0;
+        public static final double AXIS_SPEED = 0.2;//m/s
+        public static final double SPEED = 0.2;
+        public static final double ROTATIONS_TO_METERS = (double)30 / 12 * 0.5 * 0.0254*0.5;//12 grooves for first gear, 30 for second gear, and 1/2 inch of height for each rotation of second gear
+    }
+    public final class Claw{
+        public static final int MOTOR_ID = 6;
+        public static final double CLOSED_POSITION = 30;
+        public static final double OPEN_POSITION = 0;
+        public static final double MAX_CURRENT = 10;
+    }
 }
