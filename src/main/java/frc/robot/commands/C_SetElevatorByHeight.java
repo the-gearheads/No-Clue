@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.SS_Elevator;
-import frc.robot.commands.C_SetElevatorByAxis;
+import frc.robot.Constants;
 
 public class C_SetElevatorByHeight extends CommandBase {
   public final SS_Elevator SS_elevator;
@@ -20,9 +20,12 @@ public class C_SetElevatorByHeight extends CommandBase {
     addRequirements(SS_elevator);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    updateSpeed();
+  }
+
+  private void updateSpeed(){
     if(SS_elevator.getHeight()<requestedHeight){
       SS_elevator.setSpeed(speed);
     }else{
@@ -33,11 +36,9 @@ public class C_SetElevatorByHeight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if(SS_elevator.getHeight()<requestedHeight){
-      
-    // }else{
-      // SS_elevator.setSpeed(-speed);
-    // }
+    if((requestedHeight-SS_elevator.getHeight())*SS_elevator.getSpeed() < 0){
+      updateSpeed();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -49,7 +50,8 @@ public class C_SetElevatorByHeight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(SS_elevator.getHeight()-requestedHeight) < 0.02;
-    // return SS_elevator.getHeight() > requestedHeight;
+    return Math.abs(requestedHeight - SS_elevator.getHeight()) < 0.3
+        || SS_elevator.getHeight() >= Constants.ELEVATOR_MAX_HEIGHT
+        || SS_elevator.getHeight() <= Constants.ELEVATOR_MIN_HEIGHT;
   }
 }

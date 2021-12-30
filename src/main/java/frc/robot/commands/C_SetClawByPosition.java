@@ -53,8 +53,8 @@ public class C_SetClawByPosition extends CommandBase {
   @Override
   public boolean isFinished() {
     return Math.abs(requestedPosition - SS_claw.getPosition()) < 0.3
-    || SS_claw.getPosition()>Constants.CLAW_CLOSED_POSITION
-    || SS_claw.getPosition()<Constants.CLAW_OPEN_POSITION
-    || SS_claw.getCurrent() > Constants.CLAW_MAX_CURRENT;
+        || SS_claw.getPosition() >= Constants.CLAW_CLOSED_POSITION
+        || SS_claw.getPosition() <= Constants.CLAW_OPEN_POSITION
+        || SS_claw.getCurrent()  >= Constants.CLAW_MAX_CURRENT;
   }
 }

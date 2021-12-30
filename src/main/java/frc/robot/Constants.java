@@ -41,6 +41,9 @@ public final class Constants {
     public static final double ELEVATOR_kG = 0;
     public static final double ELEVATOR_kV = 0;
     public static final double ELEVATOR_kA = 0;
+    public static final double ELEVATOR_MAX_HEIGHT = 1;
+    public static final double ELEVATOR_MIN_HEIGHT = 0;
+    public static final double ELEVATOR_MAX_AXIS_SPEED = 0.05;//0.01 m/s
 
 
 }

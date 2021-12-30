@@ -31,8 +31,6 @@ public class C_ElevatorDebugger extends CommandBase {
     SmartDashboard.putNumber("Elevator FeedForward kG", 0);
     SmartDashboard.putNumber("Elevator FeedForward kV", 0);
     SmartDashboard.putNumber("Elevator FeedForward kA", 0);
-    SmartDashboard.putNumber("Elevator kD", 0);
-    SmartDashboard.putNumber("Elevator kD", 0);
 
     SmartDashboard.putNumber("Elevator Setpoint", 0);
     SmartDashboard.putNumber("Elevator Position", SS_elevator.getMeasurement());
@@ -41,22 +39,18 @@ public class C_ElevatorDebugger extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-      SS_elevator.getController().setP(SmartDashboard.getNumber("Elevator kP",0));
-    
-      SS_elevator.getController().setD(SmartDashboard.getNumber("Elevator kD",0));
-    
-    if(true){
-      SS_elevator.setFeedForward(new ElevatorFeedforward(SmartDashboard.getNumber("Elevator Feedforward kS", 0),
-                                                         SmartDashboard.getNumber("Elevator Feedforward kG", 0), 
-                                                         SmartDashboard.getNumber("Elevator Feedforward kV", 0),
-                                                         SmartDashboard.getNumber("Elevator Feedforward kA", 0)));
+    SS_elevator.getController().setP(SmartDashboard.getNumber("Elevator kP",0));
+    SS_elevator.getController().setD(SmartDashboard.getNumber("Elevator kD",0));
+  
+    //Currently we are setting feedforward in the subsystem, just for testing. We will revert it back once we find reliable gains.
+    // SS_elevator.setFeedForward(new ElevatorFeedforward(SmartDashboard.getNumber("Elevator Feedforward kS", 0),
+    //                                                     SmartDashboard.getNumber("Elevator Feedforward kG", 0), 
+    //                                                     SmartDashboard.getNumber("Elevator Feedforward kV", 0),
+    //                                                     SmartDashboard.getNumber("Elevator Feedforward kA", 0)));
 
-    }
+    // SmartDashboard.putNumber("Feedforward values", SS_elevator.getFeedForward().ks);
 
-    SmartDashboard.putNumber("Feedforward values", SS_elevator.getFeedForward().ks);
-
-      SS_elevator.setGoal(SmartDashboard.getNumber("Elevator Setpoint",0));
+    SS_elevator.setGoal(SmartDashboard.getNumber("Elevator Setpoint",0));
   
     SmartDashboard.putNumber("Elevator Position", SS_elevator.getMeasurement());
   }

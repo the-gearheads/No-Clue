@@ -46,7 +46,6 @@ public class SS_Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-        System.out.println("Height: " + getHeight());
         SmartDashboard.putNumber("Elevator Position", getHeight());
   }
 

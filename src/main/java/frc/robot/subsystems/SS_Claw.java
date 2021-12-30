@@ -43,8 +43,8 @@ public class SS_Claw extends SubsystemBase {
 
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println("Current: " + getCurrent());
-    System.out.println("Position: " + getPosition());
+    System.out.println("Claw Current: " + getCurrent());
+    System.out.println("Claw Position: " + getPosition());
   }
 
   @Override

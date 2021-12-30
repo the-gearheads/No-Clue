@@ -40,91 +40,89 @@ public class SS_Drive extends SubsystemBase {
 
   /** Creates a new ExampleSubsystem. */
   public SS_Drive() {
-      lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
-      rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
-      rfMotor.setInverted(true);
-      lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
-      lbMotor.setInverted(false);
-      rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
-      rbMotor.setInverted(true);
-      
-      lbMotor.setIdleMode(IdleMode.kBrake);
-      lfMotor.setIdleMode(IdleMode.kBrake);
-      rbMotor.setIdleMode(IdleMode.kBrake);
-      rfMotor.setIdleMode(IdleMode.kBrake);
-      
+    rfMotor = new CANSparkMax(Constants.RF_ID, MotorType.kBrushless);
+    rbMotor = new CANSparkMax(Constants.RB_ID, MotorType.kBrushless);
+    lfMotor = new CANSparkMax(Constants.LF_ID, MotorType.kBrushless);
+    lbMotor = new CANSparkMax(Constants.LB_ID, MotorType.kBrushless);
     
-      lfEncoder = lfMotor.getEncoder();
-      rfEncoder = rfMotor.getEncoder();
-      lbEncoder = lbMotor.getEncoder();
-      rbEncoder = rbMotor.getEncoder();
-      
-      lfEncoder.setPosition(0);
-      rfEncoder.setPosition(0);
-      lbEncoder.setPosition(0);
-      rbEncoder.setPosition(0);
+    rfMotor.setInverted(true);
+    rbMotor.setInverted(true);
+    lbMotor.setInverted(false);
 
-      leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
-      rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
-      differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-      setDefaultCommand(new C_ArcadeDrive(this));
+    rfMotor.setIdleMode(IdleMode.kBrake);
+    rbMotor.setIdleMode(IdleMode.kBrake);
+    lfMotor.setIdleMode(IdleMode.kBrake);
+    lbMotor.setIdleMode(IdleMode.kBrake);
+    
+    rfEncoder = rfMotor.getEncoder();
+    rbEncoder = rbMotor.getEncoder();
+    lfEncoder = lfMotor.getEncoder();
+    lbEncoder = lbMotor.getEncoder();
+    
+    rfEncoder.setPosition(0);
+    rbEncoder.setPosition(0);
+    lfEncoder.setPosition(0);
+    lbEncoder.setPosition(0);
+
+    rightMotors = new SpeedControllerGroup(rfMotor, rbMotor);
+    leftMotors = new SpeedControllerGroup(lfMotor, lbMotor);
+    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
+    setDefaultCommand(new C_ArcadeDrive(this));
   }
  
-  public void setLB(double speed){
-    lbMotor.set(speed);
-  }
-  public void setLF(double speed){
-    lfMotor.set(speed);
+  public void setRF(double speed){
+    rfMotor.set(speed);
   }
   public void setRB(double speed){
     rbMotor.set(speed);
   }
-  public void setRF(double speed){
-    rfMotor.set(speed);
+  public void setLF(double speed){
+    lfMotor.set(speed);
   }
-
-  public double getLBPosition(){
-    return lbEncoder.getPosition();
+  public void setLB(double speed){
+    lbMotor.set(speed);
   }
-  public double getLFPosition(){
-    return lfEncoder.getPosition();
+  
+  public double getRFPosition(){
+    return rfEncoder.getPosition();
   }
   public double getRBPosition(){
     return rbEncoder.getPosition();
   }
-  public double getRFPosition(){
-    return rfEncoder.getPosition();
+  public double getLFPosition(){
+    return lfEncoder.getPosition();
   }
-
-  public void setLeft(double speed){
-    leftMotors.set(speed);
+  public double getLBPosition(){
+    return lbEncoder.getPosition();
   }
-
+  
   public void setRight(double speed){
     rightMotors.set(speed);
+  }
+  public void setLeft(double speed){
+    leftMotors.set(speed);
   }
 
   public void setTankDrive(double rightSpeed, double leftSpeed){
     leftMotors.set(-leftSpeed);
     rightMotors.set(-rightSpeed);
   }
-
   public void arcadeDrive(double speed, double rotation){
     differentialDrive.arcadeDrive(rotation,-speed);
   }
 
   public void printRPMs(){
-    SmartDashboard.putNumber("lbMotor Position",(getLBPosition() - prevLBPos)/20 * 60000);
-    SmartDashboard.putNumber("lfMotor Position",(getLFPosition() - prevLFPos)/20 * 60000);
-    SmartDashboard.putNumber("rbMotor Position",(getRBPosition() - prevRBPos)/20 * 60000);
-    SmartDashboard.putNumber("rfMotor Position",(getRFPosition() - prevRFPos)/20 * 60000);
+    SmartDashboard.putNumber("rfMotor RPM",(getRFPosition() - prevRFPos)/20 * 60000);
+    SmartDashboard.putNumber("rbMotor RPM",(getRBPosition() - prevRBPos)/20 * 60000);
+    SmartDashboard.putNumber("lfMotor RPM",(getLFPosition() - prevLFPos)/20 * 60000);
+    SmartDashboard.putNumber("lbMotor RPM",(getLBPosition() - prevLBPos)/20 * 60000);
 
     prevLBPos = getLBPosition();
     prevLFPos = getLFPosition();
     prevRBPos = getRBPosition();
     prevRFPos = getRFPosition();
-}
-    //cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats cats 
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

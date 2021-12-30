@@ -10,7 +10,7 @@ import frc.robot.subsystems.SS_Claw;
 
 public class C_ShutClaw extends CommandBase {
   private SS_Claw SS_claw;
-  private double speed;
+  private double speed = 0.2;
 
   /** Creates a new C_ShutClaw. */
   public C_ShutClaw(SS_Claw SS_claw) {
@@ -38,6 +38,6 @@ public class C_ShutClaw extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (SS_claw.getCurrent() > Constants.CLAW_MAX_CURRENT) || (SS_claw.getPosition() > Constants.CLAW_CLOSED_POSITION);
+    return (SS_claw.getCurrent() >= Constants.CLAW_MAX_CURRENT) || (SS_claw.getPosition() >= Constants.CLAW_CLOSED_POSITION);
   }
 }
