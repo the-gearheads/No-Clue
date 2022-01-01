@@ -31,12 +31,14 @@ public class RobotContainer {
   private SS_Elevator SS_elevator;
 
   private XboxController controller;
+  private Joystick joystick;
   private SS_Claw SS_claw;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     controller = new XboxController(Constants.Controller.PORT);
+    joystick = new Joystick(Constants.Joystick.PORT);
     SS_drive = new SS_Drive();
     SS_elevator = new SS_Elevator();
     SS_claw = new SS_Claw();
@@ -51,21 +53,20 @@ public class RobotContainer {
    */
   // Joystick joystick = new Joystick(C)
   private void configureButtonBindings() {
-    JoystickButton yBtn = new JoystickButton(controller, 4);
-    yBtn.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0.8));
+    JoystickButton btn1 = new JoystickButton(joystick, 1);
+    btn1.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0.8));
 
+    JoystickButton btn2 = new JoystickButton(joystick, 2);
+    btn2.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0));
 
-    JoystickButton xBtn = new JoystickButton(controller, 1);
-    xBtn.whenPressed(new C_SetElevatorByHeight(SS_elevator, 0));
+    JoystickButton btn3 = new JoystickButton(joystick, 3);
+    btn3.whenPressed(new C_ShutClaw(SS_claw));
 
-    JoystickButton zBtn = new JoystickButton(controller, 2);
-    zBtn.whenPressed(new C_ShutClaw(SS_claw));
+    JoystickButton btn4 = new JoystickButton(joystick, 4);
+    btn4.whenPressed(new C_SetClawByPosition(SS_claw, 0));
 
-    JoystickButton lTriggerBtn = new JoystickButton(controller, Constants.Controller.L_TRIGGER);
-    lTriggerBtn.whenPressed(new C_SetClawByPosition(SS_claw, 0));
-
-    JoystickButton rTriggerBtn = new JoystickButton(controller, Constants.Controller.R_TRIGGER);
-    rTriggerBtn.whenPressed(new C_SetClawByPosition(SS_claw, 20));
+    JoystickButton btn5 = new JoystickButton(joystick, 5);
+    btn5.whenPressed(new C_SetClawByPosition(SS_claw, 20));
   }
 
   /**
