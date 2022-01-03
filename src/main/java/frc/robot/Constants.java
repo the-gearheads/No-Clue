@@ -37,19 +37,20 @@ public final class Constants {
 
     public final class Elevator{
         public static final int MOTOR_ID = 5; //When you figure out the id, change it
-        public static final double kP = 0;
+        public static final double kP = 1.3956;
         public static final double kI = 0;
         public static final double kD = 0;
         public static final double MAX_VEL = 0;
         public static final double MAX_ACC = 0;
-        public static final double kS = 0;
-        public static final double kG = 0;
-        public static final double kV = 0;
-        public static final double kA = 0;
+        public static final double kS = 0.64681;
+        public static final double kG = 0.67002;
+        public static final double kV = 4.8679;
+        public static final double kA = 0.24884;
         public static final double MAX_HEIGHT = 0.8;
         public static final double MIN_HEIGHT = 0;
         public static final double AXIS_SPEED = 0.2;//m/s
         public static final double SPEED = 0.2;
+        public static final double PID_WEIRD_CONVERSION_FACTOR = 12/30 * 0.01;//The height gained per rotation of shaft is 0.01 (units).
         public static final double ROTATIONS_TO_METERS = (double)30 / 12 * 0.5 * 0.0254*0.5;//12 grooves for first gear, 30 for second gear, and 1/2 inch of height for each rotation of second gear
     }
     public final class Claw{
