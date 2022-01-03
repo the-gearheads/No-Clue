@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.SS_Elevator;
@@ -29,7 +30,7 @@ public class C_SetElevatorByAxis extends CommandBase {
   @Override
   public void execute() {
     double axis = DriverStation.getInstance().getStickAxis(Constants.Joystick.PORT, Constants.Joystick.Y_AXIS);
-    double dt = 20.0/1000; //time per execute() call in seconds 
+    double dt = 20/1000; //time per execute() call in seconds 
 
     if(Math.abs(axis) < 0.02){
       axis = 0;

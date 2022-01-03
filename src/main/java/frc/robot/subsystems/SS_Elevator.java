@@ -34,9 +34,6 @@ public class SS_Elevator extends SubsystemBase {
   public void setSpeed(double speed){
     elevatorMotor.set(speed);
   }
-  public void setVoltage(double voltage){
-    elevatorMotor.setVoltage(voltage);
-  }
   public void setGoal(double goal){
     if(goal < Constants.Elevator.MAX_HEIGHT && goal >= Constants.Elevator.MIN_HEIGHT){
       this.goal = goal;
@@ -63,7 +60,7 @@ public class SS_Elevator extends SubsystemBase {
     }else if(getHeight() < goal && getHeight() < Constants.Elevator.MAX_HEIGHT){
       setSpeed(speed);
     }else if(getHeight() > goal && getHeight() > Constants.Elevator.MIN_HEIGHT){
-      setSpeed(speed);
+      setSpeed(-speed);
     }
     
     SmartDashboard.putNumber("Elevator Position", getHeight());
