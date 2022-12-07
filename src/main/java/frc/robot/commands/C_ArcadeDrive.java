@@ -28,8 +28,8 @@ public class C_ArcadeDrive extends CommandBase {
  // Called every time the scheduler runs while the command is scheduled.
  @Override
  public void execute() {
-   double lvAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.LV_AXIS);
-   double rhAxis = DriverStation.getInstance().getStickAxis(Constants.Controller.PORT, Constants.Controller.RH_AXIS);
+   double lvAxis = DriverStation.getStickAxis(Constants.Controller.PORT, Constants.Controller.LV_AXIS);
+   double rhAxis = DriverStation.getStickAxis(Constants.Controller.PORT, Constants.Controller.RH_AXIS);
    SS_drive.arcadeDrive(lvAxis * speedModifier,rhAxis * speedModifier);
 
    SS_drive.printRPMs();

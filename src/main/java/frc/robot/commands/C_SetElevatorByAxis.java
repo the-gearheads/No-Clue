@@ -29,8 +29,8 @@ public class C_SetElevatorByAxis extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double axis = DriverStation.getInstance().getStickAxis(Constants.Joystick.PORT, Constants.Joystick.Y_AXIS);
-    double dt = 20/1000; //time per execute() call in seconds 
+    double axis = DriverStation.getStickAxis(Constants.Joystick.PORT, Constants.Joystick.Y_AXIS);
+    double dt = 20.0/1000; //time per execute() call in seconds 
 
     if(Math.abs(axis) < 0.02){
       axis = 0;

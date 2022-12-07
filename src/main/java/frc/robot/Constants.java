@@ -46,8 +46,8 @@ public final class Constants {
         public static final double kG = 0.67002;
         public static final double kV = 4.8679;
         public static final double kA = 0.24884;
-        public static final double MAX_HEIGHT = 0.8;
-        public static final double MIN_HEIGHT = 0;
+        public static final double MAX_HEIGHT = 8;
+        public static final double MIN_HEIGHT = -1000;
         public static final double AXIS_SPEED = 0.2;//m/s
         public static final double SPEED = 0.2;
         public static final double PID_WEIRD_CONVERSION_FACTOR = 12/30 * 0.01;//The height gained per rotation of shaft is 0.01 (units).

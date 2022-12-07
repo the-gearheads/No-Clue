@@ -67,6 +67,7 @@ public class RobotContainer {
 
     JoystickButton btn5 = new JoystickButton(joystick, 5);
     btn5.whenPressed(new C_SetClawByPosition(SS_claw, 20));
+    
   }
 
   /**

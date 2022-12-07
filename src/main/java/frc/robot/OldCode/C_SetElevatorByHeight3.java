@@ -4,7 +4,7 @@
 // REAL COMMAND, DONT USE OTHERS!!!
 package frc.robot.OldCode;
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 
